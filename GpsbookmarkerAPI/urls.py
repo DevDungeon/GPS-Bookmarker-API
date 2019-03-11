@@ -19,6 +19,7 @@ from django.contrib.auth.models import Group, Permission
 from django.urls import include
 from rest_framework import routers, serializers, viewsets
 import bookmarks.views
+import localusers.views
 from localusers.models import LocalUser
 
 
@@ -89,7 +90,11 @@ router.register(r'permissions', GroupPermissionViewSet)
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^api/auth/', include('rest_framework.urls')),
+    url(r'^api/auth/', include('rest_framework.urls')),  # For web browsable API
+
+    url(r'^api/login/', localusers.views.api_login),
+    url(r'^api/logout/', localusers.views.api_logout),
+
     url(r'^api/', include(router.urls)),
 
 ]
